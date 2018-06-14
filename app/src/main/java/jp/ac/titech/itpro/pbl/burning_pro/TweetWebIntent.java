@@ -1,6 +1,10 @@
 package jp.ac.titech.itpro.pbl.burning_pro;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -10,44 +14,42 @@ import java.util.ArrayList;
 * Implemented by builder pattern
 *
 * usage :
-* Uri tweetIntent = new TweetIntentBuilder("tweet text").build();
+* new TweetIntentBuilder("tweet text").openTwitter();
 *
-* Uri tweetIntent =
-*	new TweetIntentBuilder("tweet text")
+* new TweetIntentBuilder("tweet text")
 *		.url("https://example.com")
-*		.build();
+*		.openTwitter();
 *
-* Uri tweetIntent =
-*	new TweetIntentBuilder("tweet text")
+* new TweetIntentBuilder("tweet text")
 *		.url("https://example.com")
 *		.hashtag("hashtag1")
 *		.hashtag("hashtag2")
-*		.build();
+*		.openTwitter();
 *
 * */
 
-public class TweetIntentBuilder {
+public class TweetWebIntent {
 	private final String text;
 	private final String intent_head = "https://twitter.com/intent/tweet?";
 
 	private String url = null;
 	private ArrayList<String> hashtags = new ArrayList<String>();
 
-	public TweetIntentBuilder(String text) {
+	public TweetWebIntent(String text) {
 		this.text = text;
 	}
 
-	public TweetIntentBuilder url(String val) {
+	public TweetWebIntent url(String val) {
 		url = val;
 		return this;
 	}
 
-	public TweetIntentBuilder hashtag(String val) {
+	public TweetWebIntent hashtag(String val) {
 		hashtags.add(val);
 		return this;
 	}
 
-	public Uri build() throws UnsupportedEncodingException {
+	private Uri buildUri() throws UnsupportedEncodingException {
 		String intent_text = URLEncoder.encode(text, "UTF-8");
 		String tweet_intent_url =
 			String.format("https://twitter.com/intent/tweet?text=%s", intent_text);
@@ -71,4 +73,22 @@ public class TweetIntentBuilder {
 
 		return Uri.parse(tweet_intent_url);
 	}
+
+	public void openTwitter(Context context) {
+		try {
+			PackageManager pm = context.getPackageManager();
+			Uri uri = buildUri();
+			Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+
+			if (intent.resolveActivity(pm) != null) {
+				context.startActivity(intent);
+			} else {
+				Toast.makeText(context,
+					R.string.toast_no_view_activity, Toast.LENGTH_LONG).show();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }
