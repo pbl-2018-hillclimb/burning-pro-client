@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">burning-pro</string>
+    <string name="tweet_test_label">Tweet</string>
+    <string name="tweet_intent_head">https://twitter.com/intent/tweet?</string>
+    <string name="toast_no_view_activity">利用可能なブラウザが見つかりません</string>
 </resources>
