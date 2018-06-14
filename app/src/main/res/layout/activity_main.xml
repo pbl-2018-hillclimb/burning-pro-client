@@ -7,13 +7,36 @@
     tools:context=".MainActivity">
 
     <Button
+        android:id = "@+id/tweetTest1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/tweet_test_label"
+        android:text="Test1"
         android:onClick="tweetTest"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/tweetTest2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id = "@+id/tweetTest2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test2"
+        android:onClick="tweetTest2"
+        app:layout_constraintBottom_toBottomOf="@id/tweetTest3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tweetTest1" />
+
+    <Button
+        android:id = "@+id/tweetTest3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test3"
+        android:onClick="tweetTest3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tweetTest2" />
 
 </android.support.constraint.ConstraintLayout>
