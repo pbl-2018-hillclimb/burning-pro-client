@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
 	public void generateTest(View v) {
 		TextView imprudence_text = findViewById(R.id.ImprudenceText);
-    	imprudence_text.setText(new Imprudence().generateImprudenceText());
+		imprudence_text.setText(new Imprudence().generateImprudenceText());
 	}
 
 }
