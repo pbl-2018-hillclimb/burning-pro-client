@@ -17,4 +17,9 @@ public class MainActivity extends AppCompatActivity {
 		Intent intent = new Intent(getApplication(),ActivityTransitionActivity.class);
 		startActivity(intent);
 	}
+
+	public void transitionTest2(View v) {
+		setContentView(R.layout.activity_transition);
+
+	}
 }
