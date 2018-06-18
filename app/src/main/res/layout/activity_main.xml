@@ -34,9 +34,30 @@
         android:layout_height="wrap_content"
         android:text="Test3"
         android:onClick="tweetTest3"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/generateTest"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/tweetTest2" />
+
+    <Button
+        android:id = "@+id/generateTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="generate_Test"
+        android:onClick="generateTest"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tweetTest3" />
+
+    <TextView
+        android:id = "@+id/ImprudenceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/generateTest" />
 
 </android.support.constraint.ConstraintLayout>
