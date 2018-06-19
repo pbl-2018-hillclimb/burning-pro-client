@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">burning-pro</string>
-    <string name="toast_no_view_activity">利用可能なブラウザが見つかりません</string>
+	<string name="app_name">burning-pro</string>
+	<string name="toast_no_view_activity">利用可能なブラウザが見つかりません</string>
 </resources>
