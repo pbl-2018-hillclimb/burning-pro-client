@@ -15,20 +15,7 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	public void transitionTest(View v) {
-		Intent intent = new Intent(getApplication(), ActivityTransitionActivity.class);
+		Intent intent = new Intent(getApplication(), ImprudentTweetActivity.class);
 		startActivity(intent);
-	}
-
-	public void transitionTest2(View v) {
-		setContentView(R.layout.activity_transition);
-	}
-
-	public void transitionTest3(View v) {
-		Intent intent = new Intent(getApplication(), MainActivity.class);
-		startActivity(intent);
-	}
-
-	public void transitionTest4(View v) {
-		setContentView(R.layout.activity_main);
 	}
 }

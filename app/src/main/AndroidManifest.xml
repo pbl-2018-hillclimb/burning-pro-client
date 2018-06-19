@@ -34,7 +34,6 @@
 			</intent-filter>
 		</activity>
 		<activity android:name=".ImprudentTweetActivity"></activity>
-		<activity android:name=".ActivityTransitionActivity"></activity>
 	</application>
 
 </manifest>
