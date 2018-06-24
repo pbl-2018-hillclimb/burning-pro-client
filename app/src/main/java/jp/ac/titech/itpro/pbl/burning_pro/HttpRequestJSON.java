@@ -38,6 +38,9 @@ public class HttpRequestJSON {
         InputStreamReader reader = null;
         try {
             connection.connect();
+            if(connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                throw new IOException();
+            }
             reader = new InputStreamReader(connection.getInputStream(), "UTF-8");
             StringBuilder sb = new StringBuilder();
             char[] buf = new char[512];

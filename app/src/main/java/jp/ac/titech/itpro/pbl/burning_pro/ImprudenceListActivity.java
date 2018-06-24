@@ -61,6 +61,7 @@ public class ImprudenceListActivity extends AppCompatActivity {
             super(context, resource, objects);
         }
 
+        // TODO : Add attribute "TITLE" to JSON
         private String getTitle(JSONObject imprudence){
             String title;
             try {
@@ -109,7 +110,6 @@ public class ImprudenceListActivity extends AppCompatActivity {
         }
     }
 
-
     private static class RequestTask extends AsyncTask<Void, Void, JSONArray> {
         private WeakReference<ImprudenceListActivity> activityRef;
         private String requestURL;
@@ -123,6 +123,7 @@ public class ImprudenceListActivity extends AppCompatActivity {
         protected JSONArray doInBackground(Void... voids) {
             JSONArray res = new JSONArray();
             try {
+                // currently, this is testing url
                 URL url = new URL(requestURL);
                 res = new HttpRequestJSON(url).requestJSONArray();
             } catch (Exception e) {

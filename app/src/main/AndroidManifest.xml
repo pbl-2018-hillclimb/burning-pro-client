@@ -36,7 +36,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ImprudentTweetActivity" />
-        <activity android:name=".ImprudenceListActivity"></activity>
+        <activity android:name=".ImprudenceListActivity" />
     </application>
 
 </manifest>
