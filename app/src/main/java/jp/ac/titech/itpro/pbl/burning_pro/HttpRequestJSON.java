@@ -11,9 +11,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class HttpRequestJSON {
-    HttpURLConnection connection;
-    static final int DEFAULT_CONNECT_TIMEOUT = 10000;
-    static final int DEFAULT_READ_TIMEOUT = 15000;
+    private HttpURLConnection connection;
+    private static final int DEFAULT_CONNECT_TIMEOUT = 10000;
+    private static final int DEFAULT_READ_TIMEOUT = 15000;
 
 
     HttpRequestJSON(URL url) throws IOException {
@@ -38,7 +38,7 @@ public class HttpRequestJSON {
         InputStreamReader reader = null;
         try {
             connection.connect();
-            reader = new InputStreamReader(connection.getInputStream());
+            reader = new InputStreamReader(connection.getInputStream(), "UTF-8");
             StringBuilder sb = new StringBuilder();
             char[] buf = new char[512];
             int len;
