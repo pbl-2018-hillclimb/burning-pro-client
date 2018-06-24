@@ -33,7 +33,8 @@
                 <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
         </activity>
-        <activity android:name=".ImprudentTweetActivity"></activity>
+        <activity android:name=".ImprudentTweetActivity" />
+        <activity android:name=".ImprudenceListActivity"></activity>
     </application>
 
 </manifest>
