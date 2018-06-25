@@ -3,6 +3,4 @@
     <string name="toast_no_view_activity">利用可能なブラウザが見つかりません</string>
     <string name="imprudence_list_label">発言一覧</string>
     <string name="imprudence_label">不謹慎発言ジェネレータ</string>
-    <!-- testing url -->
-    <string name="imprudence_request_url">https://api.myjson.com/bins/1ae5ji</string>>
 </resources>

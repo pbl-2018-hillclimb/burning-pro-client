@@ -1,6 +1,7 @@
 package jp.ac.titech.itpro.pbl.burning_pro;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ImprudenceListActivity extends AppCompatActivity {
+    private ArrayList<JSONObject> phraseList;
     private ArrayAdapter<JSONObject> listAdapter;
 
     @Override
@@ -30,10 +33,30 @@ public class ImprudenceListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_imprudence_list);
 
+        phraseList = new ArrayList<>();
+
         ListView listView = findViewById(R.id.imprudence_list_view);
         listAdapter =
             new ImprudenceListAdapter(this, 0, new ArrayList<JSONObject>());
         listView.setAdapter(listAdapter);
+
+        AdapterView.OnItemClickListener clickListener =
+            new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+                    JSONObject imprudence = phraseList.get(pos);
+                    try {
+                        String phraseBody =
+                            imprudence.getJSONObject("phrase").getString("phrase");
+                        Intent intent = new Intent(getApplication(), ImprudentTweetActivity.class);
+                        intent.putExtra("phrase", phraseBody);
+                        startActivity(intent);
+                    } catch (JSONException e){
+                        e.printStackTrace();
+                    }
+                }
+            };
+        listView.setOnItemClickListener(clickListener);
 
         updateList();
     }
@@ -45,12 +68,14 @@ public class ImprudenceListActivity extends AppCompatActivity {
     protected void showResult(JSONArray res){
         try {
             for (int i = 0; i < res.length(); ++i) {
-                listAdapter.add(res.getJSONObject(i));
+                phraseList.add(res.getJSONObject(i));
             }
         } catch (JSONException e) {
             e.printStackTrace();
-            listAdapter.clear();
+            phraseList.clear();
         }
+        listAdapter.addAll(phraseList);
+        listAdapter.notifyDataSetChanged();
     }
 
     private static class ImprudenceListAdapter extends ArrayAdapter<JSONObject> {
@@ -66,7 +91,7 @@ public class ImprudenceListActivity extends AppCompatActivity {
             String title;
             try {
                 title = imprudence.getJSONObject("phrase").getString("phrase");
-                if(title.length() > MAX_TITLE_SIZE)
+                if(title != null && title.length() > MAX_TITLE_SIZE)
                     title = title.substring(0, MAX_TITLE_SIZE);
             } catch (JSONException e){
                 e.printStackTrace();
@@ -116,7 +141,7 @@ public class ImprudenceListActivity extends AppCompatActivity {
 
         RequestTask(ImprudenceListActivity activity) {
             activityRef = new WeakReference<>(activity);
-            requestURL = activity.getResources().getString(R.string.imprudence_request_url);
+            requestURL = "https://api.myjson.com/bins/142bdq";
         }
 
         @Override
