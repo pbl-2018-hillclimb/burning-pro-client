@@ -1,31 +1,97 @@
 package jp.ac.titech.itpro.pbl.burning_pro;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+/**
+ * "phrase"にテンプレートツイート文字列を持つようなIntentを作成し、startActivityを呼び出して利用する。
+ * 編集可能にしたい文字列は"{","}"で囲み、中にヒントとして表示したい文字列を入れる。
+ * 文字列に"{","}"を含めたい場合は"{{","}}"とエスケープする
+ * ex. "これは固定の文字列で、{これはヒント}です。{{これも固定の文字列}}です。"
+ */
 public class ImprudentTweetActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_imprudent_tweet);
+
+        Intent intent = getIntent();
+        String phrase = intent.getExtras().getString("phrase");
+        LinearLayout container = findViewById(R.id.ImprudentTweetArea);
+        /*
+            phrase[from,to)が次のTextView/EditTextの区間
+            次の"{","}"を検索し始めるのがstart
+         */
+        int to = 0, from = 0, start = 0;
+        String subPhrase;
+        int i = 0;
+        while (to != -1) {
+            while (true) {
+                to = phrase.indexOf("{", start);
+                if (to == -1) break;
+                if (to + 1 < phrase.length() && phrase.charAt(to + 1) == '{') {
+                    start = to + 2;
+                    continue;
+                }
+                break;
+            }
+            if (to == -1 && from < phrase.length())
+                subPhrase = phrase.substring(from);
+            else if (to != -1 && from != to)
+                subPhrase = phrase.substring(from, to);
+            else subPhrase = null;
+            if (subPhrase != null)
+                addTextView(container, subPhrase.replace("{{", "{").replace("}}", "}"));
+            if (to == -1) break;
+            from = start = to + 1;
+            while (true) {
+                to = phrase.indexOf("}", start);
+                if (to == -1) break;
+                if (to + 1 < phrase.length() && phrase.charAt(to + 1) == '}') {
+                    start = to + 2;
+                    continue;
+                }
+                break;
+            }
+            if (to == -1 && from < phrase.length())
+                subPhrase = phrase.substring(from);
+            else if (to != -1)
+                subPhrase = phrase.substring(from, to);
+            else subPhrase = null;
+            addEditText(container, subPhrase.replace("{{", "{").replace("}}", "}"));
+            from = start = to + 1;
+        }
     }
 
-    public void tweetTest(View v) {
-        new TweetWebIntent("楽しい！ 人生！")
-            .openTwitter(this);
+    private void addTextView(LinearLayout container, String subPhrase) {
+        TextView view = new TextView(this);
+        view.setText(subPhrase);
+        container.addView(view);
     }
 
-    public void tweetTest2(View v) {
-        new TweetWebIntent("楽しい！ 人生！")
-            .url("https://twitter.com/chakku_000")
-            .openTwitter(this);
+    private void addEditText(LinearLayout container, String subPhrase) {
+        EditText edit = new EditText(this);
+        edit.setHint(subPhrase);
+        container.addView(edit);
     }
 
-    public void tweetTest3(View v) {
-        new TweetWebIntent("楽しい！ 人生！")
+    public void tweet(View v) {
+        String phrase = "";
+        LinearLayout container = findViewById(R.id.ImprudentTweetArea);
+        for (int i = 0; i < container.getChildCount(); ++i) {
+            View element = container.getChildAt(i);
+            if (element instanceof android.widget.TextView)
+                phrase += ((TextView) element).getText();
+            else if (element instanceof android.widget.EditText)
+                phrase += ((EditText) element).getText();
+        }
+        new TweetWebIntent(phrase)
             .url("https://twitter.com/chakku_000")
             .hashtag("炎上")
             .hashtag("我が人生")

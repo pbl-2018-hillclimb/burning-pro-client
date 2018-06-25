@@ -6,52 +6,40 @@
     android:layout_height="match_parent"
     tools:context=".ImprudentTweetActivity">
 
-    <Button
-        android:id = "@+id/tweetTest1"
+    <LinearLayout
+        android:id="@+id/ImprudentTweetArea"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Test1"
-        android:onClick="tweetTest"
-        app:layout_constraintBottom_toBottomOf="@id/tweetTest2"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/goToTwitter"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id = "@+id/tweetTest2"
+        android:id="@+id/goToTwitter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Test2"
-        android:onClick="tweetTest2"
-        app:layout_constraintBottom_toBottomOf="@id/tweetTest3"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tweetTest1" />
-
-    <Button
-        android:id = "@+id/tweetTest3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Test3"
-        android:onClick="tweetTest3"
+        android:onClick="tweet"
+        android:text="Tweet!"
         app:layout_constraintBottom_toBottomOf="@id/generateTest"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tweetTest2" />
+        app:layout_constraintTop_toBottomOf="@+id/ImprudentTweetArea" />
 
     <Button
-        android:id = "@+id/generateTest"
+        android:id="@+id/generateTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="generate_Test"
         android:onClick="generateTest"
+        android:text="generate_Test"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tweetTest3" />
+        app:layout_constraintTop_toTopOf="@id/goToTwitter" />
 
     <TextView
-        android:id = "@+id/ImprudenceText"
+        android:id="@+id/ImprudenceText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
