@@ -60,7 +60,7 @@ public class ImprudentTweetActivity extends AppCompatActivity {
 
     private void addEditText(LinearLayout container, String subPhrase) {
         EditText edit = new EditText(this);
-        edit.setText(subPhrase);
+        edit.setHint(subPhrase);
         container.addView(edit);
     }
 
