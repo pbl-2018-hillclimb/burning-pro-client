@@ -64,19 +64,17 @@ public class ImprudentTweetActivity extends AppCompatActivity {
         container.addView(edit);
     }
 
-    public void tweetTest(View v) {
-        new TweetWebIntent("楽しい！ 人生！")
-            .openTwitter(this);
-    }
-
-    public void tweetTest2(View v) {
-        new TweetWebIntent("楽しい！ 人生！")
-            .url("https://twitter.com/chakku_000")
-            .openTwitter(this);
-    }
-
-    public void tweetTest3(View v) {
-        new TweetWebIntent("楽しい！ 人生！")
+    public void tweet(View v) {
+        String phrase = "";
+        LinearLayout container = findViewById(R.id.ImprudentTweetArea);
+        for (int i = 0; i < container.getChildCount(); ++i) {
+            View element = container.getChildAt(i);
+            if (element instanceof android.widget.TextView)
+                phrase += ((TextView) element).getText();
+            else if (element instanceof android.widget.EditText)
+                phrase += ((EditText) element).getText();
+        }
+        new TweetWebIntent(phrase)
             .url("https://twitter.com/chakku_000")
             .hashtag("炎上")
             .hashtag("我が人生")
