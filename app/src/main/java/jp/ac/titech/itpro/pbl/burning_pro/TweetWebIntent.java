@@ -10,23 +10,26 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
-/*
-* Implemented by builder pattern
-*
-* usage :
-* new TweetIntentBuilder("tweet text").openTwitter();
-*
-* new TweetIntentBuilder("tweet text")
-*       .url("https://example.com")
-*       .openTwitter();
-*
-* new TweetIntentBuilder("tweet text")
-*       .url("https://example.com")
-*       .hashtag("hashtag1")
-*       .hashtag("hashtag2")
-*       .openTwitter();
-*
-* */
+/**
+ * <p>
+ * Twitter Web Intent用のクラス。
+ * </p>
+ *
+ * <p>
+ * ビルダーパターンでパラメータを追加して、{@link #openTwitter(Context)} を呼ぶことでツイート用フォームを開く。
+ * </p>
+ *
+ * 使用例 :
+ * <pre>
+ *     {@code
+ *     new TweetIntentBuilder("tweet text")
+ *         .url("https://example.com")
+ *         .hashtag("hashtag1")
+ *         .hashtag("hashtag2")
+ *         .openTwitter();
+ *     }
+ *</pre>
+ */
 
 public class TweetWebIntent {
     private final String text;
@@ -35,20 +38,45 @@ public class TweetWebIntent {
     private String url = null;
     private ArrayList<String> hashtags = new ArrayList<String>();
 
+    /**
+     * @param text ツイートの文面
+     */
     public TweetWebIntent(String text) {
         this.text = text;
     }
 
-    public TweetWebIntent url(String val) {
-        url = val;
+
+    /**
+     * URLをツイートに追加する。
+     *
+     * 指定できるのは一つのポストにつき一つまでで、複数回呼んだ場合は最後のものだけが有効になる。
+     *
+     * @param url URLの文字列
+     * @return 更新されたインスタンス
+     */
+    public TweetWebIntent url(String url) {
+        this.url = url;
         return this;
     }
 
-    public TweetWebIntent hashtag(String val) {
-        hashtags.add(val);
+    /**
+     * ハッシュタグをポストに追加する。
+     *
+     * 一つのポストには複数のハッシュタグがつけられる。
+     *
+     * @param hashtag ハッシュタグの文字列。'#'は付けないで指定する。
+     * @return 更新されたインスタンス
+     */
+    public TweetWebIntent hashtag(String hashtag) {
+        this.hashtags.add(hashtag);
         return this;
     }
 
+    /**
+     * 指定されたパラメータからWeb Intent用のURIを生成する。
+     *
+     * @throws UnsupportedEncodingException UTF-8によるエンコードがサポートされていなかった場合
+     */
     private Uri buildUri() throws UnsupportedEncodingException {
         String intent_text = URLEncoder.encode(text, "UTF-8");
         String tweet_intent_url =
@@ -74,6 +102,12 @@ public class TweetWebIntent {
         return Uri.parse(tweet_intent_url);
     }
 
+
+    /**
+     * 指定されたパラメータでツイート用フォームを開く。
+     *
+     * @param context フォームを開こうとしているコンテキスト（アクティビティなど）
+     */
     public void openTwitter(Context context) {
         try {
             PackageManager pm = context.getPackageManager();

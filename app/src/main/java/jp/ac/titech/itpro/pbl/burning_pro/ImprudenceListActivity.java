@@ -23,10 +23,12 @@ import java.lang.ref.WeakReference;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+/** 不謹慎発言の一覧を表示するActivityのクラス。 */
 public class ImprudenceListActivity extends AppCompatActivity {
-    private ArrayList<JSONObject> phraseList;
-    private ArrayAdapter<JSONObject> listAdapter;
+    private ArrayList<PhraseEntry> phraseList;
+    private ArrayAdapter<PhraseEntry> listAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,23 +39,19 @@ public class ImprudenceListActivity extends AppCompatActivity {
 
         ListView listView = findViewById(R.id.imprudence_list_view);
         listAdapter =
-            new ImprudenceListAdapter(this, 0, new ArrayList<JSONObject>());
+            new ImprudenceListAdapter(this, 0, new ArrayList<PhraseEntry>());
         listView.setAdapter(listAdapter);
 
+        // ListViewのタッチイベントのListener
         AdapterView.OnItemClickListener clickListener =
             new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-                    JSONObject imprudence = phraseList.get(pos);
-                    try {
-                        String phraseBody =
-                            imprudence.getJSONObject("phrase").getString("phrase");
-                        Intent intent = new Intent(getApplication(), ImprudentTweetActivity.class);
-                        intent.putExtra("phrase", phraseBody);
-                        startActivity(intent);
-                    } catch (JSONException e){
-                        e.printStackTrace();
-                    }
+                    PhraseEntry imprudence = phraseList.get(pos);
+                    String phraseBody = imprudence.phrase.phrase;
+                    Intent intent = new Intent(getApplication(), ImprudentTweetActivity.class);
+                    intent.putExtra("phrase", phraseBody);
+                    startActivity(intent);
                 }
             };
         listView.setOnItemClickListener(clickListener);
@@ -61,14 +59,17 @@ public class ImprudenceListActivity extends AppCompatActivity {
         updateList();
     }
 
+    /** 不謹慎発言のリストの更新を行う。 */
     public void updateList(){
         new RequestTask(this).execute();
     }
 
-    protected void showResult(JSONArray res){
+    /** 取得したJSONからViewの更新を行う。 */
+    protected void refreshView(JSONArray res){
         try {
             for (int i = 0; i < res.length(); ++i) {
-                phraseList.add(res.getJSONObject(i));
+                JSONObject obj = res.getJSONObject(i);
+                phraseList.add(new PhraseEntry(obj));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -78,77 +79,56 @@ public class ImprudenceListActivity extends AppCompatActivity {
         listAdapter.notifyDataSetChanged();
     }
 
-    private static class ImprudenceListAdapter extends ArrayAdapter<JSONObject> {
-        private static final int MAX_TITLE_SIZE = 10;
+    /** ListViewの要素を操作するAdapter。 */
+    private static class ImprudenceListAdapter extends ArrayAdapter<PhraseEntry> {
 
         ImprudenceListAdapter
-            (@NonNull Context context, int resource, @NonNull List<JSONObject> objects) {
+            (@NonNull Context context, int resource, @NonNull List<PhraseEntry> objects) {
             super(context, resource, objects);
         }
 
-        // TODO : Add attribute "TITLE" to JSON
-        private String getTitle(JSONObject imprudence){
-            String title;
-            try {
-                title = imprudence.getJSONObject("phrase").getString("phrase");
-                if(title != null && title.length() > MAX_TITLE_SIZE)
-                    title = title.substring(0, MAX_TITLE_SIZE);
-            } catch (JSONException e){
-                e.printStackTrace();
-                title = null;
-            }
-            return title;
-        }
-
-        private String getPerson(JSONObject imprudence) {
-            String person;
-            try {
-                person = imprudence.getJSONObject("person").getString("display_name");
-            } catch (JSONException e) {
-                e.printStackTrace();
-                person = null;
-            }
-            return person;
-        }
-
-        @Override
-        public @NonNull
-        View getView(int pos, @Nullable View view, @NonNull ViewGroup parent) {
+        @Override @NonNull
+        public View getView(int pos, @Nullable View view, @NonNull ViewGroup parent) {
             if (view == null) {
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 view = inflater.inflate(android.R.layout.simple_list_item_2,
                     parent, false);
             }
-            JSONObject imprudence = getItem(pos);
+            PhraseEntry imprudence = getItem(pos);
             if (imprudence != null) {
                 TextView titleText = view.findViewById(android.R.id.text1);
-                String title = getTitle(imprudence);
-                if(title != null)
-                    titleText.setText(title);
+                titleText.setText(imprudence.phrase.title);
 
                 TextView personText = view.findViewById(android.R.id.text2);
-                String person = getPerson(imprudence);
-                if(person != null)
-                    personText.setText(person);
+                Optional<String> displayName = imprudence.person.displayName;
+                Optional<String> realName = imprudence.person.realName;
+                if(displayName.isPresent()){
+                    personText.setText(displayName.get());
+                }else if (realName.isPresent()){
+                    personText.setText(realName.get());
+                }else {
+                    personText.setText("N/A");
+                }
             }
             return view;
         }
     }
 
+    /** 通信を行う非同期処理。 */
     private static class RequestTask extends AsyncTask<Void, Void, JSONArray> {
         private WeakReference<ImprudenceListActivity> activityRef;
         private String requestURL;
 
         RequestTask(ImprudenceListActivity activity) {
             activityRef = new WeakReference<>(activity);
-            requestURL = "https://api.myjson.com/bins/142bdq";
+            // currently this is testing url
+            requestURL = "https://api.myjson.com/bins/14f39a";
         }
 
         @Override
         protected JSONArray doInBackground(Void... voids) {
             JSONArray res = new JSONArray();
             try {
-                // currently, this is testing url
                 URL url = new URL(requestURL);
                 res = new HttpRequestJSON(url).requestJSONArray();
             } catch (Exception e) {
@@ -162,7 +142,7 @@ public class ImprudenceListActivity extends AppCompatActivity {
             ImprudenceListActivity activity = activityRef.get();
             if(activity == null || activity.isFinishing())
                 return;
-            activity.showResult(res);
+            activity.refreshView(res);
         }
     }
 
