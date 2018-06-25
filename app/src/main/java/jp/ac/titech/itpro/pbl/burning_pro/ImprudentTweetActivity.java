@@ -8,6 +8,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+/**
+ * "phrase"にテンプレートツイート文字列を持つようなIntentを作成し、startActivityを呼び出して利用する。
+ * 編集可能にしたい文字列は"{","}"で囲み、中にヒントとして表示したい文字列を入れる。
+ * 文字列に"{","}"を含めたい場合は"{{","}}"とエスケープする
+ * ex. "これは固定の文字列で、{これはヒント}です。{{これも固定の文字列}}です。"
+ */
 public class ImprudentTweetActivity extends AppCompatActivity {
 
     @Override
@@ -18,13 +24,21 @@ public class ImprudentTweetActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String phrase = intent.getExtras().getString("phrase");
         LinearLayout container = findViewById(R.id.ImprudentTweetArea);
-        int to = 0, from = 0;
+        /*
+            phrase[from,to)が次のTextView/EditTextの区間
+            次の"{","}"を検索し始めるのがstart
+         */
+        int to = 0, from = 0, start = 0;
         String subPhrase;
+        int i = 0;
         while (to != -1) {
             while (true) {
-                to = phrase.indexOf("{", from);
-                if (to > 0 && phrase.charAt(to - 1) == '\\')
+                to = phrase.indexOf("{", start);
+                if (to == -1) break;
+                if (to + 1 < phrase.length() && phrase.charAt(to + 1) == '{') {
+                    start = to + 2;
                     continue;
+                }
                 break;
             }
             if (to == -1 && from < phrase.length())
@@ -33,13 +47,16 @@ public class ImprudentTweetActivity extends AppCompatActivity {
                 subPhrase = phrase.substring(from, to);
             else subPhrase = null;
             if (subPhrase != null)
-                addTextView(container, subPhrase.replace("\\{", "{"));
+                addTextView(container, subPhrase.replace("{{", "{").replace("}}", "}"));
             if (to == -1) break;
-            from = to + 1;
+            from = start = to + 1;
             while (true) {
-                to = phrase.indexOf("}", from);
-                if (to > 0 && phrase.charAt(to - 1) == '\\')
+                to = phrase.indexOf("}", start);
+                if (to == -1) break;
+                if (to + 1 < phrase.length() && phrase.charAt(to + 1) == '}') {
+                    start = to + 2;
                     continue;
+                }
                 break;
             }
             if (to == -1 && from < phrase.length())
@@ -47,8 +64,8 @@ public class ImprudentTweetActivity extends AppCompatActivity {
             else if (to != -1)
                 subPhrase = phrase.substring(from, to);
             else subPhrase = null;
-            addEditText(container, subPhrase.replace("\\}", "}"));
-            from = to + 1;
+            addEditText(container, subPhrase.replace("{{", "{").replace("}}", "}"));
+            from = start = to + 1;
         }
     }
 
