@@ -82,16 +82,20 @@ public class ImprudentTweetActivity extends AppCompatActivity {
     }
 
     public void tweet(View v) {
-        String phrase = "";
+        StringBuilder phrase = new StringBuilder();
         LinearLayout container = findViewById(R.id.ImprudentTweetArea);
         for (int i = 0; i < container.getChildCount(); ++i) {
             View element = container.getChildAt(i);
-            if (element instanceof android.widget.TextView)
-                phrase += ((TextView) element).getText();
-            else if (element instanceof android.widget.EditText)
-                phrase += ((EditText) element).getText();
+            if (element instanceof android.widget.EditText) {
+                String subPhrase = ((EditText) element).getText().toString();
+                if (subPhrase.length() == 0)
+                    phrase.append(((EditText) element).getHint());
+                else
+                    phrase.append(subPhrase);
+            } else if (element instanceof android.widget.TextView)
+                phrase.append(((TextView) element).getText());
         }
-        new TweetWebIntent(phrase)
+        new TweetWebIntent(phrase.toString())
             .url("https://twitter.com/chakku_000")
             .hashtag("炎上")
             .hashtag("我が人生")
