@@ -96,9 +96,7 @@ public class ImprudentTweetActivity extends AppCompatActivity {
                 phrase.append(((TextView) element).getText());
         }
         new TweetWebIntent(phrase.toString())
-            .url("https://twitter.com/chakku_000")
-            .hashtag("炎上")
-            .hashtag("我が人生")
+            .hashtag("burningpro")
             .openTwitter(this);
     }
 
