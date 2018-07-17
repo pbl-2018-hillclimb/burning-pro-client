@@ -123,8 +123,7 @@ public class ImprudenceListActivity extends AppCompatActivity {
 
         RequestTask(ImprudenceListActivity activity) {
             activityRef = new WeakReference<>(activity);
-            // currently this is testing url
-            requestURL = "https://api.myjson.com/bins/14f39a";
+            requestURL = activity.getResources().getString(R.string.good_phrase_ap);
         }
 
         @Override
