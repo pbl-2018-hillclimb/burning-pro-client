@@ -66,6 +66,8 @@ public class ImprudenceListActivity extends AppCompatActivity {
 
     /** 取得したJSONからViewの更新を行う。 */
     protected void refreshView(JSONArray res){
+        phraseList.clear();
+        listAdapter.clear();
         try {
             for (int i = 0; i < res.length(); ++i) {
                 JSONObject obj = res.getJSONObject(i);
