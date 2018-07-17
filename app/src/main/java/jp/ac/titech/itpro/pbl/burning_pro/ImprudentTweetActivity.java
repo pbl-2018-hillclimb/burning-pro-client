@@ -104,4 +104,38 @@ public class ImprudentTweetActivity extends AppCompatActivity {
         TextView imprudence_text = findViewById(R.id.ImprudenceText);
         imprudence_text.setText(new Imprudence().generateImprudenceText());
     }
+
+    public void tweetByApp(View view) {
+        StringBuilder phrase = new StringBuilder();
+        LinearLayout container = findViewById(R.id.ImprudentTweetArea);
+        for (int i = 0; i < container.getChildCount(); ++i) {
+            View element = container.getChildAt(i);
+            if (element instanceof android.widget.EditText) {
+                String subPhrase = ((EditText) element).getText().toString();
+                if (subPhrase.length() == 0)
+                    phrase.append(((EditText) element).getHint());
+                else
+                    phrase.append(subPhrase);
+            } else if (element instanceof android.widget.TextView)
+                phrase.append(((TextView) element).getText());
+        }
+        new TweetAppIntent(phrase.toString()).openTwitter(this, false);
+    }
+
+    public void tweetByAnyApp(View view) {
+        StringBuilder phrase = new StringBuilder();
+        LinearLayout container = findViewById(R.id.ImprudentTweetArea);
+        for (int i = 0; i < container.getChildCount(); ++i) {
+            View element = container.getChildAt(i);
+            if (element instanceof android.widget.EditText) {
+                String subPhrase = ((EditText) element).getText().toString();
+                if (subPhrase.length() == 0)
+                    phrase.append(((EditText) element).getHint());
+                else
+                    phrase.append(subPhrase);
+            } else if (element instanceof android.widget.TextView)
+                phrase.append(((TextView) element).getText());
+        }
+        new TweetAppIntent(phrase.toString()).openTwitter(this, true);
+    }
 }
