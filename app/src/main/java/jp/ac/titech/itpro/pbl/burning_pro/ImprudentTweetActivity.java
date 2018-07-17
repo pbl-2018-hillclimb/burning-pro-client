@@ -15,6 +15,7 @@ import android.widget.TextView;
  * ex. "これは固定の文字列で、{これはヒント}です。{{これも固定の文字列}}です。"
  */
 public class ImprudentTweetActivity extends AppCompatActivity {
+    private final static String burningHashTag = "burningpro";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +82,7 @@ public class ImprudentTweetActivity extends AppCompatActivity {
         container.addView(edit);
     }
 
-    public void tweet(View v) {
+    private String getTweetText() {
         StringBuilder phrase = new StringBuilder();
         LinearLayout container = findViewById(R.id.ImprudentTweetArea);
         for (int i = 0; i < container.getChildCount(); ++i) {
@@ -95,13 +96,29 @@ public class ImprudentTweetActivity extends AppCompatActivity {
             } else if (element instanceof android.widget.TextView)
                 phrase.append(((TextView) element).getText());
         }
-        new TweetWebIntent(phrase.toString())
-            .hashtag("burningpro")
+        return phrase.toString();
+    }
+
+    public void tweet(View v) {
+        new TweetWebIntent(getTweetText())
+            .hashtag(burningHashTag)
             .openTwitter(this);
     }
 
     public void generateTest(View v) {
         TextView imprudence_text = findViewById(R.id.ImprudenceText);
         imprudence_text.setText(new Imprudence().generateImprudenceText());
+    }
+
+    public void tweetByApp(View view) {
+        new TweetAppIntent(getTweetText())
+            .hashtag(burningHashTag)
+            .openTwitter(this, false);
+    }
+
+    public void tweetByAnyApp(View view) {
+        new TweetAppIntent(getTweetText())
+            .hashtag(burningHashTag)
+            .openTwitter(this, true);
     }
 }

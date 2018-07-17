@@ -22,10 +22,32 @@
         android:layout_height="wrap_content"
         android:onClick="tweet"
         android:text="Tweet!"
-        app:layout_constraintBottom_toBottomOf="@id/generateTest"
+        app:layout_constraintBottom_toBottomOf="@id/goToTwitterApp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ImprudentTweetArea" />
+
+    <Button
+        android:id="@+id/goToTwitterApp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="tweetByApp"
+        android:text="TweetByApp!"
+        app:layout_constraintBottom_toBottomOf="@id/goToTwitterAnyApp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/goToTwitter" />
+
+    <Button
+        android:id="@+id/goToTwitterAnyApp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="tweetByAnyApp"
+        android:text="TweetByAnyApp!"
+        app:layout_constraintBottom_toBottomOf="@id/generateTest"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/goToTwitterApp" />
 
     <Button
         android:id="@+id/generateTest"
@@ -36,7 +58,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/goToTwitter" />
+        app:layout_constraintTop_toTopOf="@id/goToTwitterAnyApp" />
 
     <TextView
         android:id="@+id/ImprudenceText"
