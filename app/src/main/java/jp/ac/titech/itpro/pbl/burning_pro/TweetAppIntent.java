@@ -3,10 +3,13 @@ package jp.ac.titech.itpro.pbl.burning_pro;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Parcelable;
 import android.support.v4.app.ShareCompat;
 import android.util.Log;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,11 +17,11 @@ import java.util.List;
  * <p>
  * Twitter App Intent用のクラス
  * </p>
- *
+ * <p>
  * <p>
  * ビルダーパターンでパラメータを追加して、 {@link #openTwitter(Activity, boolean)} を呼ぶことでアプリケーションに飛ぶ。
  * </p>
- *
+ * <p>
  * 使用例 :
  * <pre>
  *     {@code
@@ -57,7 +60,7 @@ public class TweetAppIntent {
 
     /**
      * ハッシュタグをポストに追加する。
-     *
+     * <p>
      * 一つのポストには複数のハッシュタグがつけられる。
      *
      * @param hashtag ハッシュタグの文字列。 '#'は付けないで指定する。
@@ -66,6 +69,19 @@ public class TweetAppIntent {
     public TweetAppIntent hashtag(String hashtag) {
         this.hashtags.add(hashtag);
         return this;
+    }
+
+    private String buildText() throws UnsupportedEncodingException {
+        String text = this.text;
+
+        for (String hashtag : hashtags)
+            text = String.format("%s #%s", text, hashtag);
+
+        if (url != null) {
+            text = String.format("%s %s", text, URLEncoder.encode(url, "UTF-8"));
+        }
+
+        return text;
     }
 
     /**
@@ -88,13 +104,13 @@ public class TweetAppIntent {
                     Log.e("TAI", String.format("Package:%s", info.activityInfo.packageName));
                     if (info.activityInfo.packageName.toLowerCase().contains("twi")) {
                         Intent shareIntent = new Intent(Intent.ACTION_SEND).setType("text/plain");
-                        shareIntent.putExtra(Intent.EXTRA_TEXT, text);
+                        shareIntent.putExtra(Intent.EXTRA_TEXT, buildText());
                         shareIntent.setPackage(info.activityInfo.packageName);
                         shareIntentList.add(shareIntent);
                     }
                 }
                 if (shareIntentList.isEmpty()) {
-                    new TweetWebIntent(text).openTwitter(activity);
+                    new TweetWebIntent(buildText()).openTwitter(activity);
                 } else {
                     Intent chooserIntent = Intent.createChooser(shareIntentList.remove(0), "Choose Twitter App");
                     chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, shareIntentList.toArray(new Parcelable[]{}));

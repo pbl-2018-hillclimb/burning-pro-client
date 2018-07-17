@@ -119,7 +119,9 @@ public class ImprudentTweetActivity extends AppCompatActivity {
             } else if (element instanceof android.widget.TextView)
                 phrase.append(((TextView) element).getText());
         }
-        new TweetAppIntent(phrase.toString()).openTwitter(this, false);
+        new TweetAppIntent(phrase.toString())
+            .hashtag("burningpro")
+            .openTwitter(this, false);
     }
 
     public void tweetByAnyApp(View view) {
@@ -136,6 +138,8 @@ public class ImprudentTweetActivity extends AppCompatActivity {
             } else if (element instanceof android.widget.TextView)
                 phrase.append(((TextView) element).getText());
         }
-        new TweetAppIntent(phrase.toString()).openTwitter(this, true);
+        new TweetAppIntent(phrase.toString())
+            .hashtag("burningpro")
+            .openTwitter(this, true);
     }
 }
