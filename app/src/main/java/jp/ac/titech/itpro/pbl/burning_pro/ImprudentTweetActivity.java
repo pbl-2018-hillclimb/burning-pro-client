@@ -81,7 +81,7 @@ public class ImprudentTweetActivity extends AppCompatActivity {
         container.addView(edit);
     }
 
-    public void tweet(View v) {
+    private String getTweetText() {
         StringBuilder phrase = new StringBuilder();
         LinearLayout container = findViewById(R.id.ImprudentTweetArea);
         for (int i = 0; i < container.getChildCount(); ++i) {
@@ -95,7 +95,11 @@ public class ImprudentTweetActivity extends AppCompatActivity {
             } else if (element instanceof android.widget.TextView)
                 phrase.append(((TextView) element).getText());
         }
-        new TweetWebIntent(phrase.toString())
+        return phrase.toString();
+    }
+
+    public void tweet(View v) {
+        new TweetWebIntent(getTweetText())
             .hashtag("burningpro")
             .openTwitter(this);
     }
@@ -106,39 +110,13 @@ public class ImprudentTweetActivity extends AppCompatActivity {
     }
 
     public void tweetByApp(View view) {
-        StringBuilder phrase = new StringBuilder();
-        LinearLayout container = findViewById(R.id.ImprudentTweetArea);
-        for (int i = 0; i < container.getChildCount(); ++i) {
-            View element = container.getChildAt(i);
-            if (element instanceof android.widget.EditText) {
-                String subPhrase = ((EditText) element).getText().toString();
-                if (subPhrase.length() == 0)
-                    phrase.append(((EditText) element).getHint());
-                else
-                    phrase.append(subPhrase);
-            } else if (element instanceof android.widget.TextView)
-                phrase.append(((TextView) element).getText());
-        }
-        new TweetAppIntent(phrase.toString())
+        new TweetAppIntent(getTweetText())
             .hashtag("burningpro")
             .openTwitter(this, false);
     }
 
     public void tweetByAnyApp(View view) {
-        StringBuilder phrase = new StringBuilder();
-        LinearLayout container = findViewById(R.id.ImprudentTweetArea);
-        for (int i = 0; i < container.getChildCount(); ++i) {
-            View element = container.getChildAt(i);
-            if (element instanceof android.widget.EditText) {
-                String subPhrase = ((EditText) element).getText().toString();
-                if (subPhrase.length() == 0)
-                    phrase.append(((EditText) element).getHint());
-                else
-                    phrase.append(subPhrase);
-            } else if (element instanceof android.widget.TextView)
-                phrase.append(((TextView) element).getText());
-        }
-        new TweetAppIntent(phrase.toString())
+        new TweetAppIntent(getTweetText())
             .hashtag("burningpro")
             .openTwitter(this, true);
     }
