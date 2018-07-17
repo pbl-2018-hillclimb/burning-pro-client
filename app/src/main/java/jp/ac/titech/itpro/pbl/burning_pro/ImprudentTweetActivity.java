@@ -15,6 +15,7 @@ import android.widget.TextView;
  * ex. "これは固定の文字列で、{これはヒント}です。{{これも固定の文字列}}です。"
  */
 public class ImprudentTweetActivity extends AppCompatActivity {
+    private final static String burningHashTag = "burningpro";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +101,7 @@ public class ImprudentTweetActivity extends AppCompatActivity {
 
     public void tweet(View v) {
         new TweetWebIntent(getTweetText())
-            .hashtag("burningpro")
+            .hashtag(burningHashTag)
             .openTwitter(this);
     }
 
@@ -111,13 +112,13 @@ public class ImprudentTweetActivity extends AppCompatActivity {
 
     public void tweetByApp(View view) {
         new TweetAppIntent(getTweetText())
-            .hashtag("burningpro")
+            .hashtag(burningHashTag)
             .openTwitter(this, false);
     }
 
     public void tweetByAnyApp(View view) {
         new TweetAppIntent(getTweetText())
-            .hashtag("burningpro")
+            .hashtag(burningHashTag)
             .openTwitter(this, true);
     }
 }
