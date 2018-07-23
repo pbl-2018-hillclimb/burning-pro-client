@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">burning-pro</string>
+    <string name="app_name">Burning Pro</string>
     <string name="toast_no_view_activity">利用可能なブラウザが見つかりません</string>
     <string name="imprudence_list_label">発言一覧</string>
     <string name="imprudence_label">不謹慎発言ジェネレータ</string>
+    <string name="imprudence_tweet_label">発言のTweet</string>
 </resources>
