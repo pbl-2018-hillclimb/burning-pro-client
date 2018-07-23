@@ -14,12 +14,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void goToImprudentTweetActivity(View v) {
-        Intent intent = new Intent(getApplication(), ImprudentTweetActivity.class);
-        intent.putExtra("phrase", "{大学生}なんだから自分で判断して{休み}たかったら{休めば}いいのではと思ってしまいます．");
-        startActivity(intent);
-    }
-
     public void goToImprudence(View v) {
         Intent intent = new Intent(getApplication(), ImprudenceListActivity.class);
         startActivity(intent);

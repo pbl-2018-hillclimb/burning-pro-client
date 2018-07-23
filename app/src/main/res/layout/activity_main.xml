@@ -6,13 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id = "@+id/activityTransitionTest"
+    <TextView
+        android:id = "@+id/appName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Transition"
-        android:onClick="goToImprudentTweetActivity"
-        app:layout_constraintBottom_toBottomOf="@id/buttonImprudence"
+        android:text="@string/app_name"
+        android:textSize="100sp"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintBottom_toTopOf="@id/buttonImprudence"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,11 +22,14 @@
         android:id = "@+id/buttonImprudence"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/imprudence_label"
+        android:text="発言Tweetジェネレータ"
+        android:textSize="40sp"
+        android:textColor="#fbfbfe"
+        android:background="@color/colorPrimary"
         android:onClick="goToImprudence"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/activityTransitionTest" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
