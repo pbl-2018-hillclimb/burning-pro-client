@@ -6,15 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".ImprudentTweetActivity">
 
+    <TextView
+        android:id = "@+id/imprudenceTweetLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/imprudence_tweet_label"
+        android:textSize="50sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_marginTop="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:id="@+id/ImprudentTweetArea"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/goToTwitter"
+        android:layout_marginTop="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/imprudenceTweetLabel" />
 
     <Button
         android:id="@+id/goToTwitter"
@@ -22,43 +34,52 @@
         android:layout_height="wrap_content"
         android:onClick="tweet"
         android:text="Tweet!"
-        app:layout_constraintBottom_toBottomOf="@id/goToTwitterApp"
+        android:textSize="20sp"
+        android:textColor="#fbfbfe"
+        android:background="@color/colorAccent"
+        android:layout_marginTop="60dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ImprudentTweetArea" />
+        app:layout_constraintRight_toLeftOf="@id/goToTwitterApp"
+        app:layout_constraintTop_toBottomOf="@id/ImprudentTweetArea" />
 
     <Button
         android:id="@+id/goToTwitterApp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="tweetByApp"
-        android:text="TweetByApp!"
-        app:layout_constraintBottom_toBottomOf="@id/goToTwitterAnyApp"
+        android:text="Tweet By App!"
+        android:textSize="20sp"
+        android:textColor="#fbfbfe"
+        android:background="@color/colorAccent"
+        android:layout_marginTop="60dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/goToTwitter" />
+        app:layout_constraintTop_toBottomOf="@id/ImprudentTweetArea" />
 
     <Button
         android:id="@+id/goToTwitterAnyApp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="tweetByAnyApp"
-        android:text="TweetByAnyApp!"
-        app:layout_constraintBottom_toBottomOf="@id/generateTest"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="Tweet By AnyApp!"
+        android:textSize="20sp"
+        android:textColor="#fbfbfe"
+        android:background="@color/colorAccent"
+        android:layout_marginTop="60dp"
+        app:layout_constraintLeft_toRightOf="@+id/goToTwitterApp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/goToTwitterApp" />
+        app:layout_constraintTop_toBottomOf="@id/ImprudentTweetArea" />
 
     <Button
         android:id="@+id/generateTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="generateTest"
-        android:text="generate_Test"
+        android:text="テスト用ボタン"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/goToTwitterAnyApp" />
+        app:layout_constraintTop_toBottomOf="@id/goToTwitterApp" />
 
     <TextView
         android:id="@+id/ImprudenceText"
