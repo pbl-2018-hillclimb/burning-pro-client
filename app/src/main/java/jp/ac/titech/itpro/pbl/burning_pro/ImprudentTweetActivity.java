@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * "phrase"にテンプレートツイート文字列を持つようなIntentを作成し、startActivityを呼び出して利用する。
@@ -35,6 +36,24 @@ public class ImprudentTweetActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             textboxContents = savedInstanceState.getStringArrayList(BUNDLE_TEXTBOX_CONTENTS);
         }
+        createPhrasesViews(container, phrase, textboxContents);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+
+        ArrayList<String> textboxContents = new ArrayList<>();
+        for (EditText edit: textboxes) {
+            textboxContents.add(edit.getText().toString());
+        }
+        savedInstanceState.putStringArrayList(BUNDLE_TEXTBOX_CONTENTS, textboxContents);
+    }
+
+    /** 発言を表示する widget を与えられた発言文字列から動的に生成し、可能で
+     *  あれば入力内容の再現も行う。
+     */
+    private void createPhrasesViews(ViewGroup container, String phrase, List<String> textboxContents) {
         /*
             phrase[from,to)が次のTextView/EditTextの区間
             次の"{","}"を検索し始めるのがstart
@@ -82,17 +101,6 @@ public class ImprudentTweetActivity extends AppCompatActivity {
             }
             from = start = to + 1;
         }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-
-        ArrayList<String> textboxContents = new ArrayList<>();
-        for (EditText edit: textboxes) {
-            textboxContents.add(edit.getText().toString());
-        }
-        savedInstanceState.putStringArrayList(BUNDLE_TEXTBOX_CONTENTS, textboxContents);
     }
 
     private void addTextView(ViewGroup container, String subPhrase) {
