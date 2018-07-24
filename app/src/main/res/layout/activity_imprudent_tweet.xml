@@ -85,8 +85,8 @@
             android:textColor="#fbfbfe"
             android:textSize="20sp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/goToTwitterAnyApp"
+            app:layout_constraintRight_toRightOf="@id/goToTwitter"
             app:layout_constraintBottom_toBottomOf="parent" />
 
         <Button
