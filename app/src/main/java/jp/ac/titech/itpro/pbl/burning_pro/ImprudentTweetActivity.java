@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -94,14 +95,14 @@ public class ImprudentTweetActivity extends AppCompatActivity {
         savedInstanceState.putStringArrayList(BUNDLE_TEXTBOX_CONTENTS, textboxContents);
     }
 
-    private void addTextView(LinearLayout container, String subPhrase) {
+    private void addTextView(ViewGroup container, String subPhrase) {
         TextView view = new TextView(this);
         view.setText(subPhrase);
         container.addView(view);
     }
 
     /** 新しく追加された `EditText` を返す。 */
-    private EditText addEditText(LinearLayout container, String subPhrase) {
+    private EditText addEditText(ViewGroup container, String subPhrase) {
         EditText edit = new EditText(this);
         edit.setHint(subPhrase);
         container.addView(edit);
