@@ -105,11 +105,6 @@ public class ImprudentTweetActivity extends AppCompatActivity {
             .openTwitter(this);
     }
 
-    public void generateTest(View v) {
-        TextView imprudence_text = findViewById(R.id.ImprudenceText);
-        imprudence_text.setText(new Imprudence().generateImprudenceText());
-    }
-
     public void tweetByApp(View view) {
         new TweetAppIntent(getTweetText())
             .hashtag(burningHashTag)
