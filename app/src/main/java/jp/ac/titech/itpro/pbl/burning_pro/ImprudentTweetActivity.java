@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.lang.CharSequence;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -121,15 +122,14 @@ public class ImprudentTweetActivity extends AppCompatActivity {
         StringBuilder phrase = new StringBuilder();
         LinearLayout container = findViewById(R.id.ImprudentTweetArea);
         for (int i = 0; i < container.getChildCount(); ++i) {
-            View element = container.getChildAt(i);
-            if (element instanceof android.widget.EditText) {
-                String subPhrase = ((EditText) element).getText().toString();
-                if (subPhrase.length() == 0)
-                    phrase.append(((EditText) element).getHint());
-                else
-                    phrase.append(subPhrase);
-            } else if (element instanceof android.widget.TextView)
-                phrase.append(((TextView) element).getText());
+            // `EditText` is a subclass of `TextView`.
+            TextView element = (TextView) container.getChildAt(i);
+            CharSequence subPhrase = element.getText();
+            // `CharSequence` does not have `isEmpty()`.
+            if (subPhrase.length() == 0 && element instanceof EditText) {
+                subPhrase = ((EditText) element).getHint();
+            }
+            phrase.append(subPhrase);
         }
         return phrase.toString();
     }
