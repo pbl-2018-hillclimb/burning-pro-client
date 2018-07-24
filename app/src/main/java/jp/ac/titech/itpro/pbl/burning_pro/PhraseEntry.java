@@ -83,16 +83,13 @@ public class PhraseEntry extends JSONData implements Serializable{
                 else
                     url = Optional.empty();
 
-                SimpleDateFormat sdf =
-                    new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US);
-
                 String datetimeString = json.optString("datetime");
                 if(datetimeString.length() > 0)
-                    datetime = Optional.of(sdf.parse(datetimeString));
+                    datetime = Optional.of(JSONData.parseDate(datetimeString));
                 else
                     datetime = Optional.empty();
 
-                created = sdf.parse(json.getString("created"));
+                created = JSONData.parseDate(json.getString("created"));
             } catch (Exception e) {
                 e.printStackTrace();
                 throw new JSONException("invalid JSON format : Entry.Phrase");
