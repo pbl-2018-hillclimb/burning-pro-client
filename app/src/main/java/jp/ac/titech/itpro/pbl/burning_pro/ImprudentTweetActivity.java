@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 /**
  * "phrase"にテンプレートツイート文字列を持つようなIntentを作成し、startActivityを呼び出して利用する。
  * 編集可能にしたい文字列は"{","}"で囲み、中にヒントとして表示したい文字列を入れる。
@@ -16,6 +18,9 @@ import android.widget.TextView;
  */
 public class ImprudentTweetActivity extends AppCompatActivity {
     private final static String burningHashTag = "burningpro";
+    private final static String BUNDLE_TEXTBOX_CONTENTS = "textbox_contents";
+
+    private ArrayList<EditText> textboxes = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +30,10 @@ public class ImprudentTweetActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String phrase = intent.getExtras().getString("phrase");
         LinearLayout container = findViewById(R.id.ImprudentTweetArea);
+        ArrayList<String> textboxContents = null;
+        if (savedInstanceState != null) {
+            textboxContents = savedInstanceState.getStringArrayList(BUNDLE_TEXTBOX_CONTENTS);
+        }
         /*
             phrase[from,to)が次のTextView/EditTextの区間
             次の"{","}"を検索し始めるのがstart
@@ -65,9 +74,24 @@ public class ImprudentTweetActivity extends AppCompatActivity {
             else if (to != -1)
                 subPhrase = phrase.substring(from, to);
             else subPhrase = null;
-            addEditText(container, subPhrase.replace("{{", "{").replace("}}", "}"));
+            textboxes.add(addEditText(container, subPhrase.replace("{{", "{").replace("}}", "}")));
+            if (textboxContents != null) {
+                int textboxIndex = textboxes.size() - 1;
+                textboxes.get(textboxIndex).setText(textboxContents.get(textboxIndex));
+            }
             from = start = to + 1;
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+
+        ArrayList<String> textboxContents = new ArrayList<>();
+        for (EditText edit: textboxes) {
+            textboxContents.add(edit.getText().toString());
+        }
+        savedInstanceState.putStringArrayList(BUNDLE_TEXTBOX_CONTENTS, textboxContents);
     }
 
     private void addTextView(LinearLayout container, String subPhrase) {
@@ -76,10 +100,12 @@ public class ImprudentTweetActivity extends AppCompatActivity {
         container.addView(view);
     }
 
-    private void addEditText(LinearLayout container, String subPhrase) {
+    /** 新しく追加された `EditText` を返す。 */
+    private EditText addEditText(LinearLayout container, String subPhrase) {
         EditText edit = new EditText(this);
         edit.setHint(subPhrase);
         container.addView(edit);
+        return edit;
     }
 
     private String getTweetText() {
