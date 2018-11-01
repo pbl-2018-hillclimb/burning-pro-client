@@ -1,17 +1,12 @@
 package jp.ac.titech.itpro.pbl.burning_pro;
 
+import android.content.Context;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.text.TextUtils;
 
 import org.json.JSONObject;
-
-import android.os.AsyncTask;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,10 +16,10 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 public class RegistrationActivity extends AppCompatActivity {
 
+    private static Context context;
     // *タイトル
     EditText inputTitle;
     // *発言
@@ -42,13 +37,11 @@ public class RegistrationActivity extends AppCompatActivity {
     // タグ
     EditText inputTag;
 
-    private static final int DEFAULT_CONNECT_TIMEOUT = 10000;
-    private static final int DEFAULT_READ_TIMEOUT = 15000;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+        context = this;
         // UIの取得
         inputTitle = findViewById(R.id.inputTitle);
         inputPhrase = findViewById(R.id.inputPhrase);
@@ -58,6 +51,10 @@ public class RegistrationActivity extends AppCompatActivity {
         checkable = findViewById(R.id.inputDateClickable);
         inputDate = findViewById(R.id.inputDate);
         inputTag = findViewById(R.id.inputTag);
+    }
+
+    public static Context getContext(){
+        return context;
     }
 
     /** チェックボックスに応じて，元ネタ投稿日時のUIを有効/無効にする */
@@ -160,57 +157,5 @@ public class RegistrationActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return json;
-    }
-
-    /** 非同期でサーバーにデータをPOSTで送信 */
-    public class PostRequestTask extends AsyncTask<JSONObject, Void, String> {
-
-        HttpURLConnection connection = null;
-        String result = "";
-        @Override
-        protected String doInBackground(JSONObject ... jsons) {
-            try {
-                URL postURL = new URL(getString(R.string.registration_url));
-                connection = (HttpURLConnection) postURL.openConnection();
-
-                connection.setRequestMethod("POST");
-                connection.setInstanceFollowRedirects(false);
-                connection.setRequestProperty("Accept-Language", "jp");
-                connection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
-                connection.setDoOutput(true);
-                connection.setDoInput(true);
-
-                connection.setConnectTimeout(DEFAULT_CONNECT_TIMEOUT);
-                connection.setReadTimeout(DEFAULT_READ_TIMEOUT);
-
-                connection.connect();
-
-                OutputStream os = connection.getOutputStream();
-                PrintStream ps = new PrintStream(os);
-                Log.d("test", jsons[0].toString());
-                ps.print(jsons[0].toString());
-
-                ps.close();
-                os.close();
-
-                // レスポンスを取得
-                final int status = connection.getResponseCode();
-                if (status == HttpURLConnection.HTTP_OK) {
-                    Toast.makeText(RegistrationActivity.this, "登録しました", Toast.LENGTH_LONG).show();
-                    result = "HTTP_OK";
-                }
-                else{
-                    Toast.makeText(RegistrationActivity.this, "登録に失敗しました", Toast.LENGTH_LONG).show();
-                    result = "status="+String.valueOf(status);
-                }
-            } catch (Exception e){
-                e.printStackTrace();
-            } finally {
-                if (connection != null) {
-                    connection.disconnect();
-                }
-            }
-            return result;
-        }
     }
 }
