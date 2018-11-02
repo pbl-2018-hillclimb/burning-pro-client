@@ -16,7 +16,8 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-
+            </intent-filter>
+            <intent-filter>
                 <!--
                 intent filter for twitter
                 see: https://developer.android.com/guide/components/intents-common?hl=ja#ViewUrl
