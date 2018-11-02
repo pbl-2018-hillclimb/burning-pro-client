@@ -36,7 +36,7 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/goToTwitter"
+                android:id="@+id/tweetButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
@@ -45,16 +45,16 @@
                 android:paddingRight="8dp"
                 android:background="@color/colorAccent"
                 android:onClick="tweet"
-                android:text="@string/web_tweet_button_label"
+                android:text="@string/tweet_button_label"
                 android:textColor="#fbfbfe"
                 android:textSize="20sp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/goToTwitterApp"
+                app:layout_constraintRight_toLeftOf="@id/shareButton"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
             <Button
-                android:id="@+id/goToTwitterApp"
+                android:id="@+id/shareButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
@@ -62,30 +62,12 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:background="@color/colorAccent"
-                android:onClick="tweetByApp"
-                android:text="@string/app_tweet_button_label"
-                android:textColor="#fbfbfe"
-                android:textSize="20sp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="@id/goToTwitterAnyApp"
-                app:layout_constraintRight_toRightOf="@id/goToTwitter"
-                app:layout_constraintBottom_toBottomOf="parent" />
-
-            <Button
-                android:id="@+id/goToTwitterAnyApp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:layout_marginBottom="40dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:background="@color/colorAccent"
-                android:onClick="tweetByAnyApp"
+                android:onClick="share"
                 android:text="@string/share_button_label"
                 android:textColor="#fbfbfe"
                 android:textSize="20sp"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/goToTwitterApp"
+                app:layout_constraintLeft_toRightOf="@+id/tweetButton"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
