@@ -137,7 +137,7 @@ public class PhraseEntry extends JSONData implements Serializable{
 
                 String twitterString = json.optString("twitter");
                 if(twitterString.length() > 0)
-                    twitter = Optional.of(displayNameString);
+                    twitter = Optional.of(twitterString);
                 else
                     twitter = Optional.empty();
 
