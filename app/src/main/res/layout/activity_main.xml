@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#e6e6e6"
     tools:context=".MainActivity">
 
     <TextView
@@ -13,23 +14,27 @@
         android:text="@string/app_name"
         android:textSize="100sp"
         android:textColor="@color/colorAccent"
+        android:fontFamily="casual"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/buttonImprudence"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop = "75dp" />
 
     <Button
         android:id = "@+id/buttonImprudence"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="発言Tweetジェネレータ"
+        android:text="発言一覧"
         android:textSize="40sp"
         android:textColor="#fbfbfe"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/frame_style2"
+        android:padding="10dp"
         android:onClick="goToImprudence"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/appName"
+        android:layout_marginTop = "100dp" />
 
 </android.support.constraint.ConstraintLayout>
