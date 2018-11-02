@@ -134,19 +134,13 @@ public class ImprudentTweetActivity extends AppCompatActivity {
         return phrase.toString();
     }
 
-    public void tweet(View v) {
-        new TweetWebIntent(getTweetText())
-            .hashtag(burningHashTag)
-            .openTwitter(this);
-    }
-
-    public void tweetByApp(View view) {
+    public void tweet(View view) {
         new TweetAppIntent(getTweetText())
             .hashtag(burningHashTag)
             .openTwitter(this, false);
     }
 
-    public void tweetByAnyApp(View view) {
+    public void share(View view) {
         new TweetAppIntent(getTweetText())
             .hashtag(burningHashTag)
             .openTwitter(this, true);

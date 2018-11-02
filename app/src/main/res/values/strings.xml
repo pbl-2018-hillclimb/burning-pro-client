@@ -4,8 +4,7 @@
     <string name="imprudence_list_label">発言一覧</string>
     <string name="imprudence_label">不謹慎発言ジェネレータ</string>
     <string name="imprudence_tweet_label">発言のTweet</string>
-    <string name="web_tweet_button_label">Tweet by WEB!</string>
-    <string name="app_tweet_button_label">Tweet by App!</string>
+    <string name="tweet_button_label">TWEET!</string>
     <string name="share_button_label">SHARE!</string>
     <string name="good_phrase_ap">http://160.16.213.209:8080/good_phrases/</string>
 </resources>
