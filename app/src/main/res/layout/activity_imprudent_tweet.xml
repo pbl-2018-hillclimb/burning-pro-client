@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".ImprudentTweetActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id = "@+id/imprudenceTweetLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/imprudence_tweet_label"
+            android:textSize="50sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp" />
+
+        <LinearLayout
+            android:id="@+id/ImprudentTweetArea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal" />
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/goToTwitter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="40dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:background="@color/colorAccent"
+                android:onClick="tweet"
+                android:text="@string/web_tweet_button_label"
+                android:textColor="#fbfbfe"
+                android:textSize="20sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/goToTwitterApp"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <Button
+                android:id="@+id/goToTwitterApp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="40dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:background="@color/colorAccent"
+                android:onClick="tweetByApp"
+                android:text="@string/app_tweet_button_label"
+                android:textColor="#fbfbfe"
+                android:textSize="20sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="@id/goToTwitterAnyApp"
+                app:layout_constraintRight_toRightOf="@id/goToTwitter"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <Button
+                android:id="@+id/goToTwitterAnyApp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="40dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:background="@color/colorAccent"
+                android:onClick="tweetByAnyApp"
+                android:text="@string/share_button_label"
+                android:textColor="#fbfbfe"
+                android:textSize="20sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/goToTwitterApp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+</ScrollView>
