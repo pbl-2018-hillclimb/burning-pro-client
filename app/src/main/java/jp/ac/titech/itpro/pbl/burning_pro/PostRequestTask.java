@@ -2,7 +2,6 @@ package jp.ac.titech.itpro.pbl.burning_pro;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -18,6 +17,7 @@ public class PostRequestTask extends AsyncTask<JSONObject, Void, String> {
 
     private HttpURLConnection connection = null;
     private String result = "";
+    private CallBackTask callBackTask;
     @Override
     protected String doInBackground(JSONObject... jsons) {
         try {
@@ -47,11 +47,9 @@ public class PostRequestTask extends AsyncTask<JSONObject, Void, String> {
             // レスポンスを取得
             final int status = connection.getResponseCode();
             if (status == HttpURLConnection.HTTP_OK) {
-                Toast.makeText(RegistrationActivity.getContext(), "登録に失敗しました", Toast.LENGTH_LONG).show();
                 result = "HTTP_OK";
             }
             else{
-                Toast.makeText(RegistrationActivity.getContext(), "登録に失敗しました", Toast.LENGTH_LONG).show();
                 result = "status="+String.valueOf(status);
             }
         } catch (Exception e){
@@ -62,5 +60,19 @@ public class PostRequestTask extends AsyncTask<JSONObject, Void, String> {
             }
         }
         return result;
+    }
+
+    @Override
+    protected void onPostExecute(String result) {
+        callBackTask.CallBack(result);
+    }
+
+    public void setOnCallBack(CallBackTask object) {
+        callBackTask = object;
+    }
+
+    // コールバック用のインテーフェース定義
+    interface CallBackTask {
+        void CallBack(String result);
     }
 }

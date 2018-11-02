@@ -15,8 +15,9 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
-public class RegistrationActivity extends AppCompatActivity {
+public class RegistrationActivity extends AppCompatActivity implements PostRequestTask.CallBackTask {
 
     private static Context context;
     // *タイトル
@@ -36,6 +37,8 @@ public class RegistrationActivity extends AppCompatActivity {
     // タグ
     EditText inputTag;
 
+    PostRequestTask task;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +53,9 @@ public class RegistrationActivity extends AppCompatActivity {
         checkable = findViewById(R.id.inputDateClickable);
         inputDate = findViewById(R.id.inputDate);
         inputTag = findViewById(R.id.inputTag);
+
+        task = new PostRequestTask();
+        task.setOnCallBack(this);
     }
 
     public static Context getContext(){
@@ -82,10 +88,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 // UIデータのJSONを作成
                 JSONObject sentJSON = createJSON();
                 // JSONをサーバーにPOSTリクエストで送信
-                new PostRequestTask().execute(sentJSON);
-                // ページ遷移
-                Intent intent = new Intent(getApplication(), MainActivity.class);
-                startActivity(intent);
+                task.execute(sentJSON);
             }
         });
         // キャンセル
@@ -140,5 +143,17 @@ public class RegistrationActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return json;
+    }
+
+    @Override
+    public void CallBack(String result) {
+        if (result.equals("HTTP_OK")) {
+            Toast.makeText(RegistrationActivity.getContext(), "登録に成功しました", Toast.LENGTH_LONG).show();
+            // ページ遷移
+            Intent intent = new Intent(getApplication(), MainActivity.class);
+            startActivity(intent);
+        } else {
+            Toast.makeText(RegistrationActivity.getContext(), "登録に失敗しました", Toast.LENGTH_LONG).show();
+        }
     }
 }
