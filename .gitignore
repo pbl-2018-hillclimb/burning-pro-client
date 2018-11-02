@@ -23,3 +23,8 @@ Thumbs.db
 /.idea/modules.xml
 /.idea/runConfigurations.xml
 /.idea/workspace.xml
+
+# credentials
+app/keystore.jks
+app/keystore.properties
+app/secrets.tar

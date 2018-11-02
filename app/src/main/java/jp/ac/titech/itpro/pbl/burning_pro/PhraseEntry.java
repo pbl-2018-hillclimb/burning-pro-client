@@ -106,7 +106,7 @@ public class PhraseEntry extends JSONData implements Serializable{
         public final Optional<String> realName;
 
         /** 投稿者の表示名 */
-        public final Optional<String> displayName;
+        public final String displayName;
 
         /** 投稿者のwebページ */
         public final ArrayList<URL> url;
@@ -129,15 +129,11 @@ public class PhraseEntry extends JSONData implements Serializable{
                 else
                     realName = Optional.empty();
 
-                String displayNameString = json.optString("display_name");
-                if(displayNameString.length() > 0)
-                    displayName = Optional.of(displayNameString);
-                else
-                    displayName = Optional.empty();
+                displayName = json.getString("display_name");
 
                 String twitterString = json.optString("twitter");
                 if(twitterString.length() > 0)
-                    twitter = Optional.of(displayNameString);
+                    twitter = Optional.of(twitterString);
                 else
                     twitter = Optional.empty();
 

@@ -102,15 +102,7 @@ public class ImprudenceListActivity extends AppCompatActivity {
                 titleText.setText(imprudence.phrase.title);
 
                 TextView personText = view.findViewById(android.R.id.text2);
-                Optional<String> displayName = imprudence.person.displayName;
-                Optional<String> realName = imprudence.person.realName;
-                if(displayName.isPresent()){
-                    personText.setText(displayName.get());
-                }else if (realName.isPresent()){
-                    personText.setText(realName.get());
-                }else {
-                    personText.setText("N/A");
-                }
+                personText.setText(imprudence.person.displayName);
             }
             return view;
         }

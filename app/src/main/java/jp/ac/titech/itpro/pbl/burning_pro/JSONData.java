@@ -16,10 +16,8 @@ public class JSONData {
     protected final JSONObject json;
 
     // parseDate
-    private static SimpleDateFormat formatSec =
-        new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US);
-    private static SimpleDateFormat formatMilliSec =
-        new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.US);
+    private static SimpleDateFormat sdf =
+        new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX", Locale.US);
 
     /**
      * @param json 管理するJSON
@@ -33,11 +31,8 @@ public class JSONData {
      * @param dateString パースする文字列
      * */
     protected static Date parseDate(String dateString) throws ParseException {
-        // check if dateString contains '.SSS'
-        if (Pattern.matches(".*\\.\\d{3}.*", dateString)) {
-            return formatMilliSec.parse(dateString);
-        } else {
-            return formatSec.parse(dateString);
-        }
+        // strip milli sec
+        dateString = dateString.replaceFirst("\\.\\d*", "");
+        return sdf.parse(dateString);
     }
 }
