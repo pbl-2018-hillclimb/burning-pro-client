@@ -17,6 +17,9 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class RegistrationActivity extends AppCompatActivity implements PostRequestTask.CallBackTask {
 
     private static Context context;
@@ -124,18 +127,14 @@ public class RegistrationActivity extends AppCompatActivity implements PostReque
             json.put("person", inputPerson.getText().toString());
             json.put("url", inputURL.getText().toString());
             json.put("deleted", deleted_yes.isChecked());
-            // 元ネタ投稿日時の取得（※日付のフォーマットが統一されたら以下を実装）
-            // 現状，元ネタ投稿日時は""のみを送信
             String date = "";
             if (checkable.isChecked()) {
-                /*
                 Calendar date_c = Calendar.getInstance();
                 date_c.set(Calendar.YEAR, inputDate.getYear());
                 date_c.set(Calendar.MONTH, inputDate.getMonth());
                 date_c.set(Calendar.DAY_OF_MONTH, inputDate.getDayOfMonth());
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
                 date = sdf.format(date_c.getTime());
-                */
             }
             json.put("published_at", date);
             json.put("tags", inputTag.getText().toString());
