@@ -27,6 +27,20 @@
         android:textColor="#fbfbfe"
         android:background="@color/colorPrimary"
         android:onClick="goToImprudence"
+        app:layout_constraintBottom_toBottomOf="@id/buttonRegistration"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id = "@+id/buttonRegistration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="発言の登録申請"
+        android:textSize="40sp"
+        android:textColor="#fbfbfe"
+        android:background="@color/colorPrimary"
+        android:onClick="goToRegistration"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
