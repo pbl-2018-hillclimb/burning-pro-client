@@ -6,29 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id = "@+id/appName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textSize="65sp"
-        android:textColor="@color/colorAccent"
-        android:layout_marginTop="50dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id = "@+id/buttonImprudence"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="発言Tweetジェネレータ"
+        android:text="@string/imprudence_list_label"
         android:textSize="30sp"
         android:textColor="#fbfbfe"
         android:background="@color/colorPrimary"
         android:onClick="goToImprudence"
-        app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
@@ -36,7 +24,7 @@
         android:id = "@+id/buttonRegistration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="発言の登録申請"
+        android:text="@string/registration_label"
         android:textSize="30sp"
         android:textColor="#fbfbfe"
         android:background="@color/colorPrimary"

@@ -1,6 +1,7 @@
 package jp.ac.titech.itpro.pbl.burning_pro;
 
 import android.content.Context;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -46,6 +47,8 @@ public class RegistrationActivity extends AppCompatActivity implements PostReque
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+        setTitle(getString(R.string.registration_label));
+
         context = this;
         // UIの取得
         inputTitle = findViewById(R.id.inputTitle);
