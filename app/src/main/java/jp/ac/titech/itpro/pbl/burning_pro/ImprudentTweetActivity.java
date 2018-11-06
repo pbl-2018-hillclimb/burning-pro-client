@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -31,6 +32,8 @@ public class ImprudentTweetActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_imprudent_tweet);
         setTitle(getString(R.string.imprudence_tweet_label));
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
         String phrase = intent.getExtras().getString("phrase");
@@ -40,6 +43,17 @@ public class ImprudentTweetActivity extends AppCompatActivity {
             textboxContents = savedInstanceState.getStringArrayList(BUNDLE_TEXTBOX_CONTENTS);
         }
         createPhrasesViews(container, phrase, textboxContents);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        switch (itemId) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

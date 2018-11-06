@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -48,6 +49,8 @@ public class RegistrationActivity extends AppCompatActivity implements PostReque
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         setTitle(getString(R.string.registration_label));
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         context = this;
         // UIの取得
@@ -62,6 +65,17 @@ public class RegistrationActivity extends AppCompatActivity implements PostReque
 
         task = new PostRequestTask();
         task.setOnCallback(this);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        switch (itemId) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public static Context getContext(){
