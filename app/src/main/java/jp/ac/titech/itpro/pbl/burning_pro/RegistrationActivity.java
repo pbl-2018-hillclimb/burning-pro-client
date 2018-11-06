@@ -20,7 +20,7 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class RegistrationActivity extends AppCompatActivity implements PostRequestTask.CallBackTask {
+public class RegistrationActivity extends AppCompatActivity implements PostRequestTask.CallbackTask {
 
     private static Context context;
     // *タイトル
@@ -58,7 +58,7 @@ public class RegistrationActivity extends AppCompatActivity implements PostReque
         inputTag = findViewById(R.id.inputTag);
 
         task = new PostRequestTask();
-        task.setOnCallBack(this);
+        task.setOnCallback(this);
     }
 
     public static Context getContext(){
@@ -67,11 +67,7 @@ public class RegistrationActivity extends AppCompatActivity implements PostReque
 
     /** チェックボックスに応じて，元ネタ投稿日時のUIを有効/無効にする */
     public void onCheckboxClicked(View view) {
-        if (checkable.isChecked()) {
-            inputDate.setEnabled(true);
-        } else {
-            inputDate.setEnabled(false);
-        }
+        inputDate.setEnabled(checkable.isChecked());
     }
 
     /** フォームの送信ボタン押下時 */
@@ -145,8 +141,8 @@ public class RegistrationActivity extends AppCompatActivity implements PostReque
     }
 
     @Override
-    public void CallBack(String result) {
-        if (result.equals("HTTP_OK")) {
+    public void callback(Boolean result) {
+        if (result) {
             Toast.makeText(RegistrationActivity.getContext(), "登録に成功しました", Toast.LENGTH_LONG).show();
             // ページ遷移
             Intent intent = new Intent(getApplication(), MainActivity.class);

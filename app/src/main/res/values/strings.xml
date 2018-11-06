@@ -7,5 +7,5 @@
     <string name="tweet_button_label">TWEET!</string>
     <string name="share_button_label">SHARE!</string>
     <string name="good_phrase_ap">http://160.16.213.209:8080/good_phrases/</string>
-    <string name="registration_url">http://160.16.213.209:8080/request/phrase_app/</string>
+    <string name="good_phrase_request_up_url">http://160.16.213.209:8080/request/phrase_app/</string>
 </resources>

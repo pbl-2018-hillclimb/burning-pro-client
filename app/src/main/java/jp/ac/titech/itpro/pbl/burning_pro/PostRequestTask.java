@@ -11,17 +11,17 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /** 非同期でサーバーにデータをPOSTで送信 */
-public class PostRequestTask extends AsyncTask<JSONObject, Void, String> {
+public class PostRequestTask extends AsyncTask<JSONObject, Void, Boolean> {
     private static final int DEFAULT_CONNECT_TIMEOUT = 10000;
     private static final int DEFAULT_READ_TIMEOUT = 15000;
 
     private HttpURLConnection connection = null;
-    private String result = "";
-    private CallBackTask callBackTask;
+    private Boolean result;
+    private CallbackTask callbackTask;
     @Override
-    protected String doInBackground(JSONObject... jsons) {
+    protected Boolean doInBackground(JSONObject... jsons) {
         try {
-            URL postURL = new URL(RegistrationActivity.getContext().getString(R.string.registration_url));
+            URL postURL = new URL(RegistrationActivity.getContext().getString(R.string.good_phrase_request_up_url));
             connection = (HttpURLConnection) postURL.openConnection();
 
             connection.setRequestMethod("POST");
@@ -38,7 +38,6 @@ public class PostRequestTask extends AsyncTask<JSONObject, Void, String> {
 
             OutputStream os = connection.getOutputStream();
             PrintStream ps = new PrintStream(os);
-            Log.d("test", jsons[0].toString());
             ps.print(jsons[0].toString());
 
             ps.close();
@@ -47,10 +46,10 @@ public class PostRequestTask extends AsyncTask<JSONObject, Void, String> {
             // レスポンスを取得
             final int status = connection.getResponseCode();
             if (status == HttpURLConnection.HTTP_OK) {
-                result = "HTTP_OK";
+                result = true;
             }
             else{
-                result = "status="+String.valueOf(status);
+                result = false;
             }
         } catch (Exception e){
             e.printStackTrace();
@@ -63,16 +62,16 @@ public class PostRequestTask extends AsyncTask<JSONObject, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String result) {
-        callBackTask.CallBack(result);
+    protected void onPostExecute(Boolean result) {
+        callbackTask.callback(result);
     }
 
-    public void setOnCallBack(CallBackTask object) {
-        callBackTask = object;
+    public void setOnCallback(CallbackTask object) {
+        callbackTask = object;
     }
 
     // コールバック用のインテーフェース定義
-    interface CallBackTask {
-        void CallBack(String result);
+    interface CallbackTask {
+        void callback(Boolean result);
     }
 }
