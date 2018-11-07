@@ -1,9 +1,5 @@
 apply plugin: 'com.android.application'
 
-def keystorePropertiesFile = rootProject.file("app/keystore.properties")
-def keystoreProperties = new Properties()
-keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -15,11 +11,16 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
-        release {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile file(keystoreProperties['storeFile'])
-            storePassword keystoreProperties['storePassword']
+        def releaseSettingGradleFile = new File("${project.rootDir}/release.gradle")
+        if (releaseSettingGradleFile.exists()) {
+            apply from: releaseSettingGradleFile, to: android
+        } else {
+            release {
+                storeFile = debug.storeFile
+                storePassword = debug.storePassword
+                keyAlias = debug.keyAlias
+                keyPassword = debug.keyPassword
+            }
         }
     }
     buildTypes {
