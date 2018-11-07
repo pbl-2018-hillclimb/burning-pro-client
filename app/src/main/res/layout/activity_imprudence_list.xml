@@ -11,13 +11,6 @@
     android:paddingTop="8dp"
     tools:context=".ImprudenceListActivity">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/imprudence_list_label"
-        android:layout_marginBottom="8dp"
-        android:textSize="20sp" />
-
     <ListView
         android:id="@+id/imprudence_list_view"
         android:layout_width="match_parent"
