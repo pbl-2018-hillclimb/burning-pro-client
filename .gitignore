@@ -25,6 +25,6 @@ Thumbs.db
 /.idea/workspace.xml
 
 # credentials
-app/keystore.jks
-app/keystore.properties
-app/secrets.tar
+keystore.jks
+release.gradle
+secrets.tar
