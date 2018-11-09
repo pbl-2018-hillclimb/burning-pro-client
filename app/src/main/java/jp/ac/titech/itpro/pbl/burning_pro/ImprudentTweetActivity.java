@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -129,6 +130,7 @@ public class ImprudentTweetActivity extends AppCompatActivity {
     /** 新しく追加された `EditText` を返す。 */
     private EditText addEditText(ViewGroup container, String subPhrase) {
         EditText edit = new EditText(this);
+        edit.setInputType(InputType.TYPE_CLASS_TEXT);
         edit.setHint(subPhrase);
         container.addView(edit);
         return edit;
