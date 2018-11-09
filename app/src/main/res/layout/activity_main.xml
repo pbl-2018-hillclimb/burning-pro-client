@@ -8,10 +8,10 @@
 
     <Button
         android:id = "@+id/buttonImprudence"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
         android:text="@string/imprudence_list_label"
-        android:textSize="30sp"
+        android:textSize="40sp"
         android:textColor="#fbfbfe"
         android:background="@color/colorPrimary"
         android:onClick="goToImprudence"
