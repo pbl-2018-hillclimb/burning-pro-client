@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">BurningPro</string>
     <string name="toast_no_view_activity">利用可能なブラウザが見つかりません</string>
+    <string name="toast_fail_to_get_phrases">発言一覧の取得に失敗しました</string>
     <string name="imprudence_list_label">発言一覧</string>
     <string name="imprudence_tweet_label">発言のTweet</string>
     <string name="registration_label">発言の登録申請</string>

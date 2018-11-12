@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -125,7 +126,7 @@ public class ImprudenceListActivity extends AppCompatActivity {
     }
 
     /** 通信を行う非同期処理。 */
-    private static class RequestTask extends AsyncTask<Void, Void, JSONArray> {
+    private static class RequestTask extends AsyncTask<Void, Void, Optional<JSONArray>> {
         private WeakReference<ImprudenceListActivity> activityRef;
         private String requestURL;
 
@@ -135,24 +136,29 @@ public class ImprudenceListActivity extends AppCompatActivity {
         }
 
         @Override
-        protected JSONArray doInBackground(Void... voids) {
-            JSONArray res = new JSONArray();
+        protected Optional<JSONArray> doInBackground(Void... voids) {
             try {
                 URL url = new URL(requestURL);
-                res = new HttpRequestJSON(url).requestJSONArray();
+                JSONArray res = new HttpRequestJSON(url).requestJSONArray();
+                return Optional.of(res);
             } catch (Exception e) {
                 e.printStackTrace();
+                return Optional.empty();
             }
-            return res;
         }
 
         @Override
-        protected void onPostExecute(JSONArray res) {
+        protected void onPostExecute(Optional<JSONArray> res) {
             ImprudenceListActivity activity = activityRef.get();
-            if(activity == null || activity.isFinishing())
+            if (activity == null || activity.isFinishing())
                 return;
-            activity.refreshView(res);
+            if (res.isPresent()) {
+                activity.refreshView(res.get());
+            } else {
+                String msg =
+                    activity.getResources().getString(R.string.toast_fail_to_get_phrases);
+                Toast.makeText(activity, msg, Toast.LENGTH_LONG).show();
+            }
         }
     }
-
 }
