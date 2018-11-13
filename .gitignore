@@ -23,6 +23,7 @@ Thumbs.db
 /.idea/modules.xml
 /.idea/runConfigurations.xml
 /.idea/workspace.xml
+/.idea/assetWizardSettings.xml
 
 # credentials
 keystore.jks
