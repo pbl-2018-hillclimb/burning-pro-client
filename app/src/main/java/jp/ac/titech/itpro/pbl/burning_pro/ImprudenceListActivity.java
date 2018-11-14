@@ -2,6 +2,7 @@ package jp.ac.titech.itpro.pbl.burning_pro;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -219,6 +220,7 @@ public class ImprudenceListActivity extends AppCompatActivity {
             if (groupName != null) {
                 TextView personText = view.findViewById(android.R.id.text1);
                 personText.setText(groupName);
+                personText.setTypeface(Typeface.DEFAULT_BOLD);
 
                 int numPhrases = getChildrenCount(groupPosition);
                 TextView countText = view.findViewById(android.R.id.text2);
