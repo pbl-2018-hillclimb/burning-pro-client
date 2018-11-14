@@ -217,6 +217,14 @@ public class ImprudenceListActivity extends AppCompatActivity {
                     parent, false);
             }
             String groupName = getGroup(groupPosition);
+            // Left padding in DP.
+            float leftPadding = 40 * context.getResources().getDisplayMetrics().density;
+            // Set left padding for group item.
+            view.setPadding(
+                (int) leftPadding,
+                view.getPaddingTop(),
+                view.getPaddingRight(),
+                view.getPaddingBottom());
             if (groupName != null) {
                 TextView personText = view.findViewById(android.R.id.text1);
                 personText.setText(groupName);
