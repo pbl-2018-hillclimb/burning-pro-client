@@ -120,6 +120,10 @@ public class ImprudenceListActivity extends AppCompatActivity {
             phraseList.clear();
         }
         listAdapter.setEntries(phraseList);
+        ExpandableListView listView = findViewById(R.id.imprudence_list_view);
+        for (int i = 0; i < listAdapter.getGroupCount(); i++) {
+            listView.expandGroup(i);
+        }
         listAdapter.notifyDataSetChanged();
     }
 
