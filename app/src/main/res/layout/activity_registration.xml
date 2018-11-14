@@ -23,21 +23,6 @@
             android:layout_marginTop = "20dp" />
 
         <EditText
-            android:id = "@+id/inputTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="*タイトル"
-            android:inputType="text"
-            android:background="@drawable/frame_style"
-            android:textSize="25sp"
-            app:layout_constraintTop_toBottomOf="@id/notes"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop = "30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp" />
-
-        <EditText
             android:id = "@+id/inputPhrase"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -48,7 +33,7 @@
             android:minLines="4"
             android:maxLines="4"
             android:textSize="25sp"
-            app:layout_constraintTop_toBottomOf="@id/inputTitle"
+            app:layout_constraintTop_toBottomOf="@id/notes"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop = "20dp"
@@ -159,21 +144,6 @@
             android:layout_marginLeft="30dp">
         </DatePicker>
 
-        <EditText
-            android:id = "@+id/inputTag"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="タグ"
-            android:inputType="text"
-            android:background="@drawable/frame_style"
-            android:textSize="25sp"
-            app:layout_constraintTop_toBottomOf="@id/inputDate"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop = "20dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp" />
-
         <Button
             android:id = "@+id/buttonImprudence"
             android:layout_width="wrap_content"
@@ -183,7 +153,7 @@
             android:textColor="#fbfbfe"
             android:background="@color/colorPrimaryDark"
             android:onClick="sendPhrase"
-            app:layout_constraintTop_toBottomOf="@id/inputTag"
+            app:layout_constraintTop_toBottomOf="@id/inputDate"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginTop = "30dp"
