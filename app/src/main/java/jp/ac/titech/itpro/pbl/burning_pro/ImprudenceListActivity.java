@@ -234,16 +234,13 @@ public class ImprudenceListActivity extends AppCompatActivity {
         public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View view, ViewGroup parent) {
             if (view == null) {
                 LayoutInflater inflater = LayoutInflater.from(context);
-                view = inflater.inflate(android.R.layout.simple_list_item_2,
+                view = inflater.inflate(android.R.layout.simple_list_item_1,
                     parent, false);
             }
             PhraseEntry imprudence = getChild(groupPosition, childPosition);
             if (imprudence != null) {
                 TextView titleText = view.findViewById(android.R.id.text1);
                 titleText.setText(imprudence.phrase.title);
-
-                TextView personText = view.findViewById(android.R.id.text2);
-                personText.setText(imprudence.person.displayName);
             }
             return view;
         }
