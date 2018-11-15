@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -229,6 +230,7 @@ public class ImprudenceListActivity extends AppCompatActivity {
                 TextView personText = view.findViewById(android.R.id.text1);
                 personText.setText(groupName);
                 personText.setTypeface(Typeface.DEFAULT_BOLD);
+                personText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
 
                 int numPhrases = getChildrenCount(groupPosition);
                 TextView countText = view.findViewById(android.R.id.text2);
