@@ -25,8 +25,6 @@ import java.util.Calendar;
 public class RegistrationActivity extends AppCompatActivity implements PostRequestTask.CallbackTask {
 
     private static Context context;
-    // *タイトル
-    EditText inputTitle;
     // *発言
     EditText inputPhrase;
     // *発言者
@@ -39,8 +37,6 @@ public class RegistrationActivity extends AppCompatActivity implements PostReque
     CheckBox checkable;
     // 元ネタ投稿日時
     DatePicker inputDate;
-    // タグ
-    EditText inputTag;
 
     PostRequestTask task;
 
@@ -54,14 +50,12 @@ public class RegistrationActivity extends AppCompatActivity implements PostReque
 
         context = this;
         // UIの取得
-        inputTitle = findViewById(R.id.inputTitle);
         inputPhrase = findViewById(R.id.inputPhrase);
         inputPerson = findViewById(R.id.inputPerson);
         inputURL = findViewById(R.id.inputURL);
         deleted_yes = findViewById(R.id.deleted_yes);
         checkable = findViewById(R.id.inputDateClickable);
         inputDate = findViewById(R.id.inputDate);
-        inputTag = findViewById(R.id.inputTag);
 
         task = new PostRequestTask();
         task.setOnCallback(this);
@@ -89,8 +83,8 @@ public class RegistrationActivity extends AppCompatActivity implements PostReque
 
     /** フォームの送信ボタン押下時 */
     public void sendPhrase(View v) {
-        // 空白処理（*タイトル，*発言，*発言者のみ）
-        if (checkNull(inputTitle) || checkNull(inputPhrase) || checkNull(inputPerson)) {
+        // 空白処理（*発言，*発言者のみ）
+        if (checkNull(inputPhrase) || checkNull(inputPerson)) {
             return;
         }
         // 確認ダイアログの作成
@@ -135,7 +129,6 @@ public class RegistrationActivity extends AppCompatActivity implements PostReque
     public JSONObject createJSON(){
         JSONObject json = new JSONObject();
         try {
-            json.put("title", inputTitle.getText().toString());
             json.put("phrase", inputPhrase.getText().toString());
             json.put("person", inputPerson.getText().toString());
             json.put("url", inputURL.getText().toString());
@@ -150,7 +143,6 @@ public class RegistrationActivity extends AppCompatActivity implements PostReque
                 date = sdf.format(date_c.getTime());
             }
             json.put("published_at", date);
-            json.put("tags", inputTag.getText().toString());
         } catch (Exception e){
             e.printStackTrace();
         }
